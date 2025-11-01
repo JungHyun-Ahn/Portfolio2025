@@ -1,0 +1,209 @@
+@charset "utf-8";
+/* 
+	컴포넌트 스타일
+	:: icon
+	:: Button ,badge
+	:: etc
+*/
+// icon
+[class^=icon-]{
+	display: inline-block;
+	background-size: contain;
+	background-repeat: no-repeat;
+	text-indent: -9999px;
+	vertical-align: middle;
+	&.revert{
+		transform: rotate(180deg);
+	}
+	&.wh {
+		filter:grayscale(1) invert(1) ;
+	}
+}
+
+// Button  , badge
+.btn {
+    padding: 4px 8px;
+    border-radius: 0;
+
+    &:hover, &:active, &:focus {box-shadow: none !important;}
+    
+    &-outline {
+        border: 1px solid var(--white);
+        color: var(--white);
+        transition: all 0.2s;
+        &:hover {
+            background-color: var(--white);
+            color: #000;
+        }
+    }
+}
+
+
+// mouseScrollIcon
+.mouseScrollIcon {
+    position: absolute;
+    bottom: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    @include flex(flex, center, center, column);
+    gap: 10px;
+    opacity: 0;
+    animation: show 0.8s ease-out 2s ;
+    animation-fill-mode: forwards;
+
+    .mouse {
+        position: relative;
+        padding: 8px 13px;
+        width: 4px; height: 32px;
+        border: 2px solid #fff;
+        border-radius: 25px;
+        opacity: 0.8;
+        box-sizing: content-box;
+
+        p {
+            opacity: 0.8;
+            letter-spacing: 1px;
+            font-size: 15px;
+        }
+
+        .scroller {
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background-color: #fff;
+            animation: scroll 0.8s ease-in infinite alternate;
+        }
+    }
+}
+
+// top btn
+.to-top {
+    position: fixed;
+    z-index: 10;
+    right: 30px;bottom: 30px;
+    width: 52px;height: 52px;
+    background-color: #fff;
+    border-radius: 50%;
+    @include flex(flex, center, center, row);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+
+    a {
+        @include flex(flex, center, center, row);
+        width: 100%;height: 100%;
+        i {
+            line-height: 1;
+            color: var(--primary);
+            font-size: 0;
+            &::before {font-size: 50px;}
+        }
+    }
+
+    &.active {
+        opacity: 1;
+    }
+}
+
+// dot text
+.dot-text {
+    display: flex;
+    gap: 4px;
+
+    &::before {
+        content: '·';
+    }
+}
+
+// menu list
+.menu-list {
+    @include flex(flex, center, center, row);
+    gap: rempx(16px);
+
+    li {
+        color: var(--gray);
+
+        & + li {
+            @include flex(flex, center, center, row);
+            gap: rempx(16px);
+            &::before {
+                content: '';
+                display: block;
+                width: 2px; height: 12px;
+                background: var(--light-gray);
+            }
+        }
+
+        span {
+            position: relative;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.3s;
+
+            &::after {
+                display: block;
+                position: absolute;
+                bottom: -2px;
+                width: 0; height: 2px;
+                border-radius: 10px;
+                background-color: var(--primary);
+                transition: width 0.3s;
+            }
+        }
+
+        &.active {
+            color: var(--primary);
+            span {
+                &::after {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    @include media-max(md) {
+        gap: 8px;
+
+        li {
+            & + li {
+                gap: 8px;
+                &::before {
+                    width: 1px; height: 10px;
+                }
+            }
+        }
+    }
+}
+
+// modal
+.modal {
+    .modal-content {
+        max-height: calc((var(--vh, 1vh) * 90)) !important;
+        border-radius: rempx(16px);
+
+        .modal-header {
+            @include flex(flex, center, end, row);
+            padding: rempx(16px) rempx(24px);
+            line-height: 1;
+
+            .btn-close {
+                font-size: rempx(30px);
+                color: var(--primary);
+            }
+        }
+
+        .modal-body {
+            padding: rempx(60px) rempx(40px);
+        }
+    }
+
+    @include media-max(md) {
+        .modal-content {
+            border-radius: 12px;
+            .modal-header {padding: 12px 18px;}
+            .modal-body {padding: 32px 20px;}
+        }
+    }
+}
+body {
+    &.modal-open {padding: 0 !important;}
+}

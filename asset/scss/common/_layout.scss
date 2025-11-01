@@ -1,0 +1,15 @@
+@charset "utf-8";
+body{
+    background: #fff;
+}
+
+#wrap{overflow-x: clip;}
+
+.contain{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+
+    &-wide {max-width: none;}
+}
